@@ -4,7 +4,11 @@
 from flask import Flask, make_response
 from flask_migrate import Migrate
 
-from models import db, Earthquake
+# Handle both CLI (flask db) and direct Python execution
+try:
+    from .models import db, Earthquake
+except ImportError:
+    from models import db, Earthquake
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
